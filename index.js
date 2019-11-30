@@ -1,6 +1,5 @@
 import express from 'express'
 import Multer from 'multer'
-import fs from 'fs'
 import { format } from 'util'
 import { Storage } from '@google-cloud/storage'
 import cors from 'cors'
@@ -58,7 +57,7 @@ server.post('/file', multer.single('testFile'), (req, res) => {
 server.get('/files', async (req, res) => {
 
     let resFiles = { images: [] }
-    
+
     let [files] = await bucket.getFiles()
 
     let mappedFiles = await Promise.all(files.map(async file => {
@@ -67,7 +66,7 @@ server.get('/files', async (req, res) => {
         return metadata
     }))
 
-    resFiles = {images: mappedFiles}
+    resFiles = { images: mappedFiles }
 
     res.json(resFiles)
 })
